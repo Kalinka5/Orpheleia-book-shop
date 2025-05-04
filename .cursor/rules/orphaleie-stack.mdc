@@ -1,0 +1,13 @@
+---
+description: This is the project's tech stack
+globs: 
+alwaysApply: false
+---
+
+# Technical stack
+
+- Python (FastAPI) for the backend
+- React (Vite), html, css for the frontend
+- SQL databases, never use JSON file storage
+- Separate databases for dev, test and prod
+- Python tests
