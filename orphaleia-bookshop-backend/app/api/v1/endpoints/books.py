@@ -81,6 +81,32 @@ def create_book(
     return book
 
 
+@router.get("/featured", response_model=List[schemas.Book])
+def read_featured_books(
+    db: Session = Depends(deps.get_db),
+    limit: int = 8,
+) -> Any:
+    """
+    Get featured books.
+    """
+    books = db.query(models.Book).filter(models.Book.featured == True).limit(limit).all()
+    return books
+
+
+@router.get("/category/{category}", response_model=List[schemas.Book])
+def read_books_by_category(
+    category: str,
+    db: Session = Depends(deps.get_db),
+    skip: int = 0,
+    limit: int = 100,
+) -> Any:
+    """
+    Get books by category.
+    """
+    books = db.query(models.Book).filter(models.Book.category == category).offset(skip).limit(limit).all()
+    return books
+
+
 @router.get("/{book_id}", response_model=schemas.Book)
 def read_book(
     *,
@@ -138,29 +164,3 @@ def delete_book(
     db.delete(book)
     db.commit()
     return book
-
-
-@router.get("/category/{category}", response_model=List[schemas.Book])
-def read_books_by_category(
-    category: str,
-    db: Session = Depends(deps.get_db),
-    skip: int = 0,
-    limit: int = 100,
-) -> Any:
-    """
-    Get books by category.
-    """
-    books = db.query(models.Book).filter(models.Book.category == category).offset(skip).limit(limit).all()
-    return books
-
-
-@router.get("/featured/", response_model=List[schemas.Book])
-def read_featured_books(
-    db: Session = Depends(deps.get_db),
-    limit: int = 8,
-) -> Any:
-    """
-    Get featured books.
-    """
-    books = db.query(models.Book).filter(models.Book.featured == True).limit(limit).all()
-    return books

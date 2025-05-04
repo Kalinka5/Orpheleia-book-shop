@@ -99,6 +99,23 @@ def read_orders(
     return orders
 
 
+@router.get("/user", response_model=List[schemas.Order])
+def read_user_orders(
+    db: Session = Depends(deps.get_db),
+    skip: int = 0,
+    limit: int = 100,
+    current_user: models.User = Depends(deps.get_current_active_user),
+) -> Any:
+    """
+    Retrieve current user's orders.
+    """
+    orders = db.query(models.Order).filter(
+        models.Order.user_id == current_user.id
+    ).offset(skip).limit(limit).all()
+    
+    return orders
+
+
 @router.get("/{order_id}", response_model=schemas.Order)
 def read_order(
     *,
