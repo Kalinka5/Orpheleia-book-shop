@@ -65,6 +65,7 @@ class OrderInDBBase(OrderBase):
     payment_id: Optional[str] = None
     created_at: datetime
     updated_at: datetime
+    item_count: Optional[int] = None
 
     class Config:
         from_attributes = True

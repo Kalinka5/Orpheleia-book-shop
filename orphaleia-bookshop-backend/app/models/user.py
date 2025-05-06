@@ -16,4 +16,5 @@ class User(Base):
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
     # Relationships
-    orders = relationship("Order", back_populates="user", cascade="all, delete-orphan") 
+    orders = relationship("Order", back_populates="user", cascade="all, delete-orphan")
+    shipping_address = relationship("ShippingAddress", back_populates="user", uselist=False, cascade="all, delete-orphan") 

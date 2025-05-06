@@ -3,6 +3,8 @@ from typing import Optional
 
 from pydantic import BaseModel, EmailStr
 
+from app.schemas.shipping_address import ShippingAddress
+
 
 # Shared properties
 class UserBase(BaseModel):
@@ -35,7 +37,7 @@ class UserInDBBase(UserBase):
 
 # Additional properties to return via API
 class User(UserInDBBase):
-    pass
+    shipping_address: Optional[ShippingAddress] = None
 
 
 # Additional properties stored in DB

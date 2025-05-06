@@ -17,6 +17,7 @@ class Order(Base):
     payment_id = Column(String, nullable=True)  # External payment reference
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    item_count = Column(Integer, nullable=True)
     
     # Relationships
     user = relationship("User", back_populates="orders")

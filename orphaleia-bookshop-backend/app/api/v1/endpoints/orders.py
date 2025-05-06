@@ -23,6 +23,7 @@ def create_order(
     # Calculate total amount based on cart items
     total_amount = 0
     order_items = []
+    total_items = 0
     
     for item in order_in.items:
         book = db.query(models.Book).filter(models.Book.id == item.book_id).first()
@@ -37,6 +38,7 @@ def create_order(
             )
         
         total_amount += book.price * item.quantity
+        total_items += item.quantity
         
         # Create order item
         order_items.append({
@@ -56,7 +58,8 @@ def create_order(
         user_id=current_user.id,
         total_amount=total_amount,
         shipping_address=order_in.shipping_address,
-        status="pending"
+        status="pending",
+        item_count=total_items
     )
     db.add(order)
     db.commit()
