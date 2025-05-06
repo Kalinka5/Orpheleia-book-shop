@@ -17,4 +17,5 @@ class User(Base):
     
     # Relationships
     orders = relationship("Order", back_populates="user", cascade="all, delete-orphan")
-    shipping_address = relationship("ShippingAddress", back_populates="user", uselist=False, cascade="all, delete-orphan") 
+    shipping_address = relationship("ShippingAddress", back_populates="user", uselist=False, cascade="all, delete-orphan")
+    # wishlist_items relationship is defined in WishlistItem model with backref 

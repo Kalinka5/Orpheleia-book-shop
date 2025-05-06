@@ -24,4 +24,5 @@ class Book(Base):
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
     # Relationships
-    order_items = relationship("OrderItem", back_populates="book") 
+    order_items = relationship("OrderItem", back_populates="book")
+    # wishlisted_by relationship is defined in WishlistItem model with backref 
