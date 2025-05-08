@@ -1,0 +1,57 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./orphaleia-bookshop-backend
+    container_name: orphaleia_backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://app:changethis123@db:5432/app
+    networks:
+      - orphaleia_network
+
+  frontend:
+    build:
+      context: ./orphaleia-bookshop-frontend
+    container_name: orphaleia_frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    networks:
+      - orphaleia_network
+
+  db:
+    image: postgres:latest
+    container_name: orphaleia_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: changethis123
+      POSTGRES_DB: app
+    networks:
+      - orphaleia_network
+
+  adminer:
+    image: adminer
+    container_name: orphaleia_adminer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - orphaleia_network
+
+volumes:
+  postgres_data:
+
+networks:
+  orphaleia_network:
+    driver: bridge
