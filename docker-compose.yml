@@ -64,7 +64,7 @@ services:
       - npm_data:/data
       - npm_letsencrypt:/etc/letsencrypt
     networks:
-      - orpheleia_network
+      - orphaleia_network
     restart: unless-stopped
 
 volumes:
