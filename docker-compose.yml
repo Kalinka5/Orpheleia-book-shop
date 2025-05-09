@@ -1,5 +1,9 @@
 version: "3.8"
 
+networks:
+  orphaleia_network:
+    driver: bridge
+
 services:
   backend:
     build:
@@ -67,7 +71,3 @@ volumes:
   postgres_data:
   npm_data:
   npm_letsencrypt:
-
-networks:
-  orphaleia_network:
-    driver: bridge
