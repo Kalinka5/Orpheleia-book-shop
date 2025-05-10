@@ -27,7 +27,7 @@ services:
     environment:
       - HOST=0.0.0.0
       - PORT=8080
-      - VITE_API_URL=http://backend:8000
+      - VITE_API_URL=https://orphaleia.com/api
     depends_on:
       - backend
     networks:
